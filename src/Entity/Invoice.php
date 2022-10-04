@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\InvoiceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: InvoiceRepository::class)]
 class Invoice
 {
     #[ORM\Id]

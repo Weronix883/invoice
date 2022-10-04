@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Faktura{% endblock %}
+
+{% block actions %}
+    <ul>
+        <li><a href="{{ path('invoice_index') }}">powrót do listy faktur</a> </li>
+        <li><a href="{{ path('invoice_edit', {'id': invoice.id}) }}">edytuj dokument</a> </li>
+        <li>{{ include('invoice/_delete_form.html.twig') }}</li>
+    </ul>
+
+{% endblock %}
+
+{% block body %}
+    <h1>Faktura</h1>
+
+    <table class="tabel">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ invoice.id }}</td>
+            </tr>
+            <tr>
+                <th>Kupiec</th>
+                <td>{{ invoice.buyer }}</td>
+            </tr>
+            <tr>
+                <th>Dostawca</th>
+                <td>{{ invoice.supplier }}</td>
+            </tr>
+            <tr>
+                <th>Netto</th>
+                <td>{{ invoice.net }}</td>
+            </tr>
+            <tr>
+                <th>Podatek</th>
+                <td>{{ invoice.tax }}</td>
+            </tr>
+            <tr>
+                <th>Brutto</th>
+                <td>{{ invoice.gross }}</td>
+            </tr>
+            <tr>
+                <th>Waluta</th>
+                <td>{{ invoice.currency }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <br>
+
+    <table class="table">
+        <thread>
+            <tr>
+                <td>Id</td>
+                <td>Nazwa</td>
+                <td>Netto</td>
+                <td>Podatek</td>
+                <td>Brutto</td>
+                <td>Edytuj</td>
+                <td>Usuń</td>
+            </tr>
+        </thread>
+        <tbody>
+        {% for position in invoice.positions %}
+            <tr>
+                <td>{{ position.id }}</td>
+                <td>{{ position.name }}</td>
+                <td>{{ position.net }}</td>
+                <td>{{ position.tax }}</td>
+                <td>{{ position.gross }}</td>
+                <td><a href="{{ path('position_edit', {'id': position.id}) }}">Edytuj</a></td>
+
+                <td>{{  include('position/_delete_form.html.twig', {'position': position}) }}</td>
+            </tr>
+
+        {% else %}
+            <td colspan="7">brak rekordów</td>
+
+        {% endfor %}
+        <a href="={{ path('position_new', {'id':invoice.id}) }}">Stwórz nową pozycję</a>
+        </tbody>
+    </table>
+
+{% endblock %}

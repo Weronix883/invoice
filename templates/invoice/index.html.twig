@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lista faktur{% endblock %}
+
+{% block body %}
+    <h1>Lista faktur</h1>
+
+    <table class="table">
+        <thread>
+            <tr>
+                <th>Id</th>
+                <th>Kupiec</th>
+                <th>Dostawca</th>
+                <th>Netto</th>
+                <th>Vat</th>
+                <th>Brutto</th>
+                <th>Waluta</th>
+                <th>Akcje</th>
+            </tr>
+        </thread>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.id }}</td>
+                <td>{{ invoice.buyer }}</td>
+                <td>{{ invoice.supplier }}</td>
+                <td>{{ invoice.net }}</td>
+                <td>{{ invoice.tax }}</td>
+                <td>{{ invoice.gross }}</td>
+                <td>{{ invoice.currency }}</td>
+                <td>
+                    <a href="{{ path('invoice_show', {'id': invoice.id}) }}">pokaż</a>
+                    <a href="{{ path('invoice_edit', {'id': invoice.id}) }}">edytuj</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Brak dokumentów</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('invoice_new') }}">Stwórz nowy dokument</a>
+{% endblock %}

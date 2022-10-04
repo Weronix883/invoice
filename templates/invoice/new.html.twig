@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nowa faktura{% endblock %}
+
+{% block body %}
+    <h1>Nowy dokument</h1>
+
+    {{ include('invoice/_form.html.twig') }}
+
+    <a href="{{ path('invoice_index') }}">powrót</a>
+{% endblock %}
